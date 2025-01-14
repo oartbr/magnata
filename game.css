@@ -1,0 +1,67 @@
+body{
+    background: #000;
+    color: #0f0;
+    font-size: 14px;
+    width: 160px;
+    height: 80px;
+    text-align: center;
+
+}
+.options{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+a:hover{
+    color: #fff;
+}
+a{
+    color: #0f0;
+}
+.actionButton:hover{
+    border-color: #0ff!important;
+    color: #0ff!important;
+}
+.spent{
+    color: #fff;
+    width: 100%;
+    height: 30px;
+    position: relative;
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    font-weight: bold;
+    font-size: 30px;
+    animation: fadeOutUp 2s forwards;
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.firm{
+    text-align: center; 
+    margin-top: -6px; 
+    margin-bottom: 5px;
+}
+
+.money::before {
+    content: "R$";
+}
+.money::after {
+    content: ".00";
+}
+.gameBoard{
+    top: 280px;
+    left: 20px;
+    width: 392px;
+    height: 280px;
+}
