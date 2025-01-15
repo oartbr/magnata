@@ -21,7 +21,7 @@ $(function() {
                             });
 
         this.agent = new Agent(10, 'Praça', this);
-        this.board = new PlayBoard("board", this);
+        this.board = new PlayBoard("Magnata", this);
         this.timer = new TimeKeeper('timer', this, this.board.updateDate);
         this.timer.loadState();
 
@@ -107,7 +107,7 @@ $(function() {
         .addAirport("Aeroporto", "Porto Alegre–Salgado Filho International Airport",
                     "https://www.google.com/maps/@-29.990081,-51.1753389,3a,75y,89.72h,102.88t/data=!3m8!1e1!3m6!1sAF1QipN7X9BLB_AOajJxecuva5EcxparGTnhopVggF7C!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipN7X9BLB_AOajJxecuva5EcxparGTnhopVggF7C%3Dw900-h600-k-no-pi-12.877823474138125-ya11.720227139378395-ro0-fo100!7i8192!8i4096?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Estádio Beira-Rio", "Estádio Beira-Rio", 0,
-                "https://www.google.com/maps/@-30.0663725,-51.235208,2a,90y,340.04h,68.78t/data=!3m7!1e1!3m5!1sEv018aoq4ie2FtcqaKmEcg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D21.217761301380577%26panoid%3DEv018aoq4ie2FtcqaKmEcg%26yaw%3D340.0403823977023!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwNy4wIKXMDSoASAFQAw%3D%3D")
+                "https://www.google.com/maps/@-30.0651214,-51.2351769,3a,81.3y,14.21h,73.37t/data=!3m8!1e1!3m6!1sAF1QipP7Gw9-a0Jj0snhVqpwBpY79MOm-IVroZhricFo!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipP7Gw9-a0Jj0snhVqpwBpY79MOm-IVroZhricFo%3Dw900-h600-k-no-pi16.63185543366528-ya7.207325798815191-ro0-fo100!7i2508!8i1253?entry=ttu&g_ep=EgoyMDI1MDExMC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Marquês Parrilla", "1249 Av. Carlos Gomes", 150,
                 "https://www.google.com/maps/@-30.0323045,-51.1796782,3a,41.2y,196.94h,82.86t/data=!3m7!1e1!3m5!1sNLzw98MscEzdQvmZ-DmMYA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.143786211494358%26panoid%3DNLzw98MscEzdQvmZ-DmMYA%26yaw%3D196.9432921817689!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Hotel Deville", "Hotel Deville Prime Porto Alegre", 0,

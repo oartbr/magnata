@@ -70,7 +70,7 @@ class PlayBoard{
         this.game = oOwner;
         this.db = this.game.db;
         this.util = this.game.util;
-        this.el = $('<div id="' + sId + 'board" class="gameBoard"></div>').css("background", "#000").css("z-index","999").css("position","fixed").css("padding","10").css("border-radius", "5px").css("color", "#0F0");
+        this.el = $('<div id="' + sId + '_board" class="gameBoard"/>');
         $('#titlecard').append(this.el);
 
         this.commActions = '.commActions';
@@ -82,26 +82,36 @@ class PlayBoard{
         return this;
     }
     setup(){
-        $(this.el).append('<div class="firm"/>')
-                .append('<div class="status" style="float: right; width: 100px; padding-left: 10px; text-align: center; font-size: 0.9rem"/>')
-                .append('<div class="values" style="float: left; width: 70%"/>')
-                .append('<div class="comm" style="border-top: 1px solid rgb(0, 255, 0);float: left;position: absolute;bottom: 5px;height: 70px;width: 390px;"/>');
-        $(".firm").append("<div>Magnata: Carpe diem!</div>");
-        $(".values").append('<div class="warehouse" style="height: 80px;margin-bottom: 5px; border: 1px solid #0f0; display: flex"/>')
-                    .append('<div class="stock" style="height: 80px;margin-bottom: 5px;border: 1px solid #0f0; display: flex"/>')
-                    .append('<div class="balance" style="font-size: 0.7rem; padding-top: 5px"/>');
+        const sMainPage = $(`<div class="firm">
+                                <div>Magnata: Carpe diem!</div>
+                            </div>
+                            <div class="status">
+                                <div><h3>Data</h3><span class="statusDate">🗲</span></div>
+                                <div><h3>Lugar</h3><span class="statusLocation">🗲</span></div>
+                                <div><h3>Dividas</h3><span class="statusDebt money">🗲</span></div>
+                                <div><h3>Saúde</h3><span class="statusHealth">🗲</span></div>
+                            </div>
+                            <div class="values">
+                                <div class="warehouse">
+                                    <div class="stockValue floatLeft">Contratos</div>
+                                </div>
+                                <div class="stock">
+                                    <div class="stockValue floatLeft">Jogadores <span class="stockCapacity">🗲</span></div>
+                                    <div class="stockValue floatRight">Promesas <span class="stockPromises">🗲</span></div>
+                                </div>
+                                <div class="balance">
+                                    <div class="stockValue floatLeft">Cash: <span class="balanceCash money">🗲</span></div>
+                                    <div class="stockValue floatRight">Banco: <span class="balanceBank money">🗲</span></div>
+                                </div>
+                            </div>
+                            <div class="comm">
+                                <div class="commMessage">...</div>
+                                <div class="commActions">🗲</div>
+                            </div>
+                            `);
 
-        $(".warehouse").append('<div style="font-size: 0.7rem;width: 40%; float: left; margin-left: 5px">Contratos</div>');
-        $(".stock").append('<div style="font-size: 0.7rem;width: 40%; float: left; margin-left: 5px">Jogadores <span class="stockCapacity">0</span></div>')
-                    .append('<div style="font-size: 0.7rem;width: 40%; float: right; text-align: right; margin-right: 5px">Promesas <span class="stockPromises">0</span></div>');
-        $(".status").append('<div style="font-size: 0.7rem">Data</div><div style="margin-bottom:0.5rem"><span class="statusDate">Jan/15/2025</span></div>')
-                    .append('<div style="font-size: 0.7rem">Lugar</div><div style="margin-bottom:0.5rem"><span class="statusLocation">🗲</span></div>')
-                    .append('<div style="font-size: 0.7rem">Dividas</div><div style="margin-bottom:0.5rem"><span class="statusDebt money">0</span></div>')
-                    .append('<div style="font-size: 0.7rem">Saúde</div><div style="margin-bottom:0.5rem"><span class="statusHealth">🗲</span></div>');
-        $(".balance").append('<div style="font-size: 0.7rem; float: left; width: 40%">Cash: <span class="balanceCash money" style="font-size: 0.9rem">0</span></div>')
-                    .append('<div style="font-size: 0.7rem; float: right; width: 40%; text-align: right">Banco: <span class="balanceBank money" style="font-size: 0.9rem">0</span></div>');
-        $(".comm").append('<div class="commMessage" style="font-size: 0.7rem">...</div>')
-                .append('<div class="commActions">🗲</div>');
+        $(this.el).append(sMainPage);
+
     }
     moveTo(x,y){
         $(this.el).css("left", x).css("top", y);
@@ -134,10 +144,12 @@ class PlayBoard{
         return oAction.el;
     }
     resetComm(){
-        $('.commActions').html("");
+        $('.commMessage').empty();
+        $('.commActions').empty();
     }
     say(sWho, sMessage){
-        $('.commMessage').html(`${sWho}: ${sMessage}`);
+        $('.commMessage').remove();
+        $('.comm').prepend(`<div class="commMessage">${sWho}: ${sMessage}</div>`);
     }
     message(sMessage){
         $(this.commActions).append(`<div style="float: left;margin-top: 5px;width:100%;height:100%;text-align:left;font-size:0.85rem">${sMessage}</div>`);
@@ -174,7 +186,7 @@ class PlayBoard{
         const aSharks = this.game.entities.filter(npc=>npc.debt != undefined);
         let iDebt = 0;
         aSharks.forEach(shark=>iDebt+=shark.debt);
-        $(".statusDebt").text(iDebt);
+        $(".statusDebt").text(iDebt.toLocaleString('pt-BR'));
         console.log("setDebt", iDebt);
     }
     setHealth(){
@@ -190,8 +202,8 @@ class PlayBoard{
         $(".statusHealth").text(sStatus + ": " + this.game.agent.health);
     }
     setBalance(){
-        $(".balanceCash").text(this.game.agent.wallet.balance);
-        $(".balanceBank").text(0);
+        $(".balanceCash").text(this.game.agent.wallet.balance.toLocaleString('pt-BR'));
+        $(".balanceBank").text((0).toLocaleString('pt-BR'));
     }
     findContacts(oPlace){
         for (const [key, contact] of Object.entries(oPlace.contacts)) {
@@ -213,7 +225,7 @@ class PlayBoard{
         if(this.game.currentPlace.airport){
         this.createAction('Viajar', 'showCities', this);
         }
-
+        
     }
     showPlaces(oElement){
         this.resetComm();
@@ -234,7 +246,7 @@ class PlayBoard{
     }
     showCities(oElement){
         this.resetComm();
-        this.say("Gol", "Onde você quer viajar?");
+        this.say("Assistente", "Onde você quer viajar?");
         const sCity = this.game.currentPlace.city.id;
         $(oElement).html("");
         $(oElement).prepend('<div style="float:left"></div>');
@@ -310,10 +322,10 @@ class Place{
     getHere(){
         const bAirTravel = typeof this.city != 'undefined' && this.city.game.currentPlace.airport === true && this.airport === true;        
         if(this.location) {
-        this.reference ? this.city.game.agent.spend(bAirTravel ? this.city.movementFee : this.movementFee, bAirTravel ? this.city.movementMessage : this.movementMessage) : '';
-        this.city.game.board.setStatus();
-        bAirTravel ? this.city.game.timer.tripToAnotherCity() : this.city.game.timer.tripWithinCity();
-        window.location.href = this.location;
+            this.reference ? this.city.game.agent.spend(bAirTravel ? this.city.movementFee : this.movementFee, bAirTravel ? this.city.movementMessage : this.movementMessage) : '';
+            this.city.game.board.setStatus();
+            bAirTravel ? this.city.game.timer.trip(24) : this.city.game.timer.trip(6);
+            window.location.href = this.location;
         }
     }
     getButton(){
@@ -909,7 +921,7 @@ class LoanShark extends NPC {
                         debt: this.debt,
                         interest: this.interest,
                         balance: this.wallet.balance,
-                        lastRecalc: this.lastRecalc});
+                        lastRecalc: this.lastRecalc == '' ? this.game.timer.getCurrentDate() : this.lastRecalc});
     }
     getData(){
         const oData = this.loadState();
@@ -930,15 +942,16 @@ class LoanShark extends NPC {
         return this;
     }
     recalculate(){
-        
+        if(this.debt == 0){
+            return;
+        }
         const currentDate = dayjs(this.game.timer.getCurrentDate());
-        const lastRecalcDate = dayjs(this.lastRecalc || currentDate);
+        const lastRecalcDate = dayjs(this.lastRecalc == '' ? currentDate : this.lastRecalc);
         const diff = currentDate.diff(lastRecalcDate, 'days');
 
         if(diff > 0){
-            this.debt += Math.floor(((this.interest/diff) * this.debt));
-        } else {
-            this.lastRecalc = lastRecalcDate;
+            this.debt += Math.floor((((this.interest/30) * diff) * this.debt));
+            this.lastRecalc = currentDate;
         }
     }
     chat(){
@@ -978,20 +991,14 @@ class LoanShark extends NPC {
         this.game.board.createAction('10000', 'processCredit', this, 10000);
     }
     processPayment (oEl, iAmount){
-        console.log("try paying " + iAmount);
-        console.log("current debt: " + this.debt, "shark balance: " + this.wallet.balance, "agent Balance: " + this.game.agent.wallet.balance);
         if(this.game.util.transfer(this.game.agent, this, iAmount)){
             this.debt -= iAmount;
-
-            console.log("received " + iAmount);
-            console.log("resulting debt: " + this.debt, "shark balance: " + this.wallet.balance, "agent Balance: " + this.game.agent.wallet.balance);
 
             this.creditScore = this.creditScore * 1.05;
             this.creditLimit += iAmount * 0.5;
             
             this.game.board.resetComm();
             this.game.board.say(`${this.name}`, `Ótimo, que bom que posso confiar em você!`);
-
 
             this.game.board.createAction('<', 'showOptions', this.game.board);
             this.game.board.message(`Obrigado! Agora confio mais em você (${this.creditScore.toFixed(2)})`);
@@ -1001,7 +1008,7 @@ class LoanShark extends NPC {
             this.game.board.say(`${this.name}`, `Ha! não tem grana, como vai pagar?`);
 
             this.game.board.createAction('<', 'showOptions', this.game.board);
-            this.game.board.createAction('Sair correndo', 'showOptions', this.game.board);
+            this.game.board.createAction('Sair correndo', 'showPlaces', this.game.board);
             this.game.board.setStatus();
         }
     }
@@ -1024,7 +1031,7 @@ class LoanShark extends NPC {
         this.game.board.say(`${this.name}`, `Não vai dar, não tenho esse dinheiro agora...`);
         this.game.board.createAction('<', 'chat', this);
         this.game.board.createAction('Continuar', 'chat', this);
-        this.game.board.createAction('Sair', 'showOptions', this.game.board);
+        this.game.board.createAction('Sair', 'showPlaces', this.game.board);
         }
     }
 }
@@ -1127,16 +1134,9 @@ class TimeKeeper {
         return this;
     }
     // Method to handle a trip within the city (1/4 day)
-    tripWithinCity() {
-        this.currentDate = dayjs(this.currentDate).add(6, 'hours').toDate();
-        this.updateCounters(0.25);
-        this.saveState();
-        this.callback();
-    }
-    // Method to handle a trip to another city (next day)
-    tripToAnotherCity() {
-        this.currentDate = dayjs(this.currentDate).add(1, 'days').toDate();
-        this.updateCounters(1);
+    trip(iHours) {
+        this.currentDate = dayjs(this.currentDate).add(iHours, 'hours').toDate();
+        this.updateCounters(iHours / 24);
         this.saveState();
         this.callback();
     }
@@ -1169,7 +1169,7 @@ class TimeKeeper {
     }
     loadState(){
         const oData = this.game.db.get(this.id) || false;
-        if (oData) {
+        if (oData && oData.currentDate) {
             for (let key in oData) {
                 this[key] = oData[key];
             }

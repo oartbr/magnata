@@ -1,22 +1,26 @@
-body{
+.gameBoard{
     background: #000;
     color: #0f0;
     font-size: 14px;
     width: 160px;
     height: 80px;
     text-align: center;
-
+    z-index: 999;
+    position:fixed;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.3);
 }
-.options{
+.gameBoard .options{
     font-size: 14px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
 }
-a:hover{
+.gameBoard a:hover{
     color: #fff;
 }
-a{
+.gameBoard a{
     color: #0f0;
 }
 .actionButton:hover{
@@ -47,21 +51,152 @@ a{
     }
 }
 
-.firm{
-    text-align: center; 
-    margin-top: -6px; 
-    margin-bottom: 5px;
-}
-
 .money::before {
     content: "R$";
 }
 .money::after {
-    content: ".00";
+    content: ",00";
 }
 .gameBoard{
     top: 280px;
     left: 20px;
     width: 392px;
     height: 280px;
+}
+.firm{
+    text-align: center; 
+    margin-top: -6px; 
+    margin-bottom: 5px;
+}
+.statusDebt {
+    animation: updateBlinker 2s forwards;
+}
+
+@keyframes updateBlinker {
+    0% {
+        color: #fff;
+    }
+    100% {
+        color: #0f0;
+    }
+}
+
+.status{
+    float: right; 
+    width: 100px; 
+    padding-left: 10px; 
+    text-align: center; 
+    font-size: 0.9rem;
+}
+.status div{
+    font-size: 0.7rem;
+    margin-bottom: 20px;
+}
+
+.values{
+    float: left; 
+    width: 70%
+}
+.floatLeft{
+    float: left;
+}
+.floatRight{
+    float: right;
+}
+.comm{
+    border-top: 1px solid rgb(0, 255, 0);
+    float: left;
+    position: absolute;
+    bottom: 5px;
+    height: 70px;
+    width: 390px;
+    font-size: 0.7rem
+}
+
+.commMessage{
+    animation: faderOut 4s forwards;
+    background-color:#000;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.7rem;
+}
+.commActions{
+    animation: faderIn 4s forwards;
+}
+
+@keyframes faderOut {
+    0% {
+        opacity: 1;
+        color: #fff;
+    }
+    100% {
+        opacity: 1;
+        color: #0f0;
+    }
+}
+
+@keyframes faderIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.warehouse{
+    height: 80px;
+    margin-bottom: 5px; 
+    border: 1px solid #0f0; 
+    display: flex
+}
+
+.warehouse div{
+    font-size: 0.7rem;
+    width: 40%; 
+    float: left; 
+    margin-left: 5px
+}
+
+.stock{
+    height: 80px;
+    margin-bottom: 5px;
+    border: 1px solid #0f0; 
+    display: flex
+}
+
+.stockValue{
+    font-size: 0.7rem;
+    width: 48%; 
+    margin-left: 5px
+}
+
+
+.balance{
+    font-size: 0.7rem; 
+    padding-top: 5px
+}
+
+.gamePopUp{
+    background: #000;
+    color: #0f0;
+    font-size: 14px;
+    width: 160px;
+    height: 80px;
+    text-align: center;
+}
+.gamePopUp .options{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.gamePopUp a:hover{
+    color: #fff;
+}
+.gamePopUp a{
+    color: #0f0;
 }
