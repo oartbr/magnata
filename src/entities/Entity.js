@@ -39,4 +39,10 @@ export class Entity{
 
         return bSuccess;
     }
+    say(sMessage){
+        if(typeof sMessage == 'string'){
+            this.game.board.say(this.name, sMessage);
+        }
+        return sMessage;
+    }
 }

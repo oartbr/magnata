@@ -11,7 +11,7 @@ export class NPC extends Entity{
         this.action = this[sAction];
         return this;
     }
-    async getChat(prompt) {
+    async getChat(prompt, role) {
         const apiKey = "API_KEY"; // to-do list... get the OpenAI API key
         const apiUrl = "https://api.openai.com/v1/chat/completions";
 
@@ -22,8 +22,8 @@ export class NPC extends Entity{
             Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-            model: "gpt-4",
-            messages: [{ role: "user", content: prompt }],
+            model: "gpt-3.5-turbo",
+            messages: [{ role: 'user', content: "você é " + role + ". " + prompt + ". Resposta bem curta e direta."}],
         }),
         });
 

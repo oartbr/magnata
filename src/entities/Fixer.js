@@ -31,7 +31,10 @@ export class Fixer extends NPC {
         const sCity = this.game.currentPlace.city.id;
         const sPlace = this.game.currentPlace;
         this.game.board.resetComm();
-        this.game.board.say(`${this.name}`, "Cara, tu deve grana e vai pagar de qualquer jeito.");
+
+        this.getChat("Tu acha o Magnata, que está devendo grana pro seu Laerte e anda fujindo. Pede pra pagar ou terá consequencias. Seja bem curto e grosso.", "cobrador de um agiota")
+            .then(response=>this.say(response));
+        
 
         this.game.board.createAction('<', 'showOptions', this.game.board);
         this.game.board.createAction('Correr', 'die', this.game.board);

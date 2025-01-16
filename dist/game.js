@@ -1,3 +1,4 @@
+console.log("linha 1");
 $(function() { 
   window.game = (function (){
     function Game(){

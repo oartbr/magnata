@@ -29,5 +29,5 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": ["activeTab", "tabs", "storage"]
+  "permissions": ["activeTab", "tabs", "windows", "storage"]
 }
