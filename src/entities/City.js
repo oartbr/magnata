@@ -17,13 +17,13 @@ export class City{
     }
     addAirport(sId, sReference, sLocation){
         this.movementMessage = this.airlines[Math.floor(Math.random() * this.airlines.length)];
-        this.airport = new Place(sId, sReference, sLocation, this).attr("airport", true);
+        this.airport = new Magnata.Place(sId, sReference, sLocation, this).attr("airport", true);
         this.reference = sReference;
         this.places[sId] = this.airport;
         return this;
     }
     addPlace(sId, sReference, iFare, sLocation){
-        this.places[sId] = new Place(sId, sReference, sLocation, this);
+        this.places[sId] = new Magnata.Place(sId, sReference, sLocation, this);
         this.places[sId].fare = iFare;
         return this;
     }

@@ -4,7 +4,7 @@ export class Entity{
         this.name = sName;
         this.place = sPlace;
         this.game = oGame;
-        this.wallet = new Wallet(this);
+        this.wallet = new Magnata.Wallet(this);
 
         this.register();
     }

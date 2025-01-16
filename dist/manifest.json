@@ -22,7 +22,7 @@
     {
       "matches": ["https://*.google.com/maps/*"],
       "css": ["game.css"],
-      "js": ["jquery-3.7.1.min.js", "dayjs.min.js", "magnata.lib.js", "game.js"]
+      "js": ["jquery-3.7.1.min.js", "dayjs.min.js", "magnata.bundle.js", "game.js"]
     }
   ],
   "background": {

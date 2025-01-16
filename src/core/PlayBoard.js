@@ -62,7 +62,7 @@ export class PlayBoard{
         $(this.el).append(`<div class="spent">${sType}: ${iAmount}</div>`);
     }
     createAction(sTitle, fAction, oEntity, sVal = 0, iFee = 0){
-        const oAction = new Place(sTitle, false, false);
+        const oAction = new Magnata.Place(sTitle, false, false);
         const oAgent = this.game.agent;
         $(oAction.el).click(()=>{ oAgent.spend(iFee);
                                 console.log(iFee, "fee");
@@ -72,7 +72,7 @@ export class PlayBoard{
         return oAction.el;
     }
     createInput(sTitle, fAction, oEntity, sVal = 0){
-        const oAction = new Place(sTitle, false, false);
+        const oAction = new Magnata.Place(sTitle, false, false);
         //const oComm = this.commActions;
         $(oAction.el).click(()=>oEntity[fAction](this.commActions, sVal));
         $(this.commActions).append(oAction.el);

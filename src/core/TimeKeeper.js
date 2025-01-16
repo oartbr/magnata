@@ -4,7 +4,7 @@ export class TimeKeeper {
         this.startDate = new Date(2015, 1, 28); // February 28th, 2015
         this.currentDate = new Date(2015, 1, 28);
         this.game = oGame;
-        this.counters = new Collection('timers', this);
+        this.counters = new Magnata.Collection('timers', this);
         this.callback = fCallBack;
         return this;
     }

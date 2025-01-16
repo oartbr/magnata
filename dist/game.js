@@ -1,42 +1,41 @@
 $(function() { 
-    
-  window.magnata = (function (){
-    function Magnata(){
+  window.game = (function (){
+    function Game(){
 
-      console.log("Vai Magnata!");
+      console.log("Vai Game!");
       this.setUp();
     }
-    Magnata.prototype = {
+    Game.prototype = {
       setUp: function(){
-        this.util = new Util(this);
-        this.db = new Storage('Magnata', this);
-        this.entities = new Collection('entities', this);
-        this.entities.setMap({manager: Manager,
-                              player: Player,
-                              teamowner: TeamOwner,
-                              fixer: Fixer,
-                              spy: Spy,
-                              loanshark: LoanShark,
-                              assistant: Assistant,
+        this.util = new Magnata.Util(this);
+        this.db = new Magnata.Storage('Game', this);
+        this.entities = new Magnata.Collection('entities', this);
+        this.entities.setMap({manager: Magnata.Manager,
+                              player: Magnata.Player,
+                              teamowner: Magnata.TeamOwner,
+                              fixer: Magnata.Fixer,
+                              spy: Magnata.Spy,
+                              loanshark: Magnata.LoanShark,
+                              assistant: Magnata.Assistant,
                             });
 
-        this.agent = new Agent(10, 'Praça', this);
-        this.board = new PlayBoard("Magnata", this);
-        this.timer = new TimeKeeper('timer', this, this.board.updateDate);
+        this.agent = new Magnata.Agent(10, 'Praça', this);
+        this.board = new Magnata.PlayBoard("Game", this);
+        this.timer = new Magnata.TimeKeeper('timer', this, this.board.updateDate);
         this.timer.loadState();
 
         this.ref = $("#titlecard div:first-child div:first-child").offset() + $("#titlecard div:first-child div:first-child").height() + 20;
         //this.board.moveTo("20px",280 + "px");
         //this.board.resize("392px","280px");
 
-        this.cities = new Collection('cities', this);
-        this.places = new Collection('places', this);
+        this.cities = new Magnata.Collection('cities', this);
+        this.places = new Magnata.Collection('places', this);
 
         this.currentPlace = {};
         this.home = {};
       },
       addCity: function(sName, sLocation){
-        this.cities[sName] = new City(sName, sLocation, this);
+        this.cities[sName] = new Magnata.City(sName, sLocation, this);
         this.home = (this.home.id == undefined) ? this.cities[sName] : this.home;
         return this.cities[sName];
       },
@@ -63,7 +62,7 @@ $(function() {
       addNPC: function(sName, sPlace, sType){
         const NPCClass = this.entities.oMap[sType.toLowerCase()];
         if (!NPCClass) {
-          throw new Error(`Unknown NPC type: ${sType}`);
+          throw new Magnata.Error(`Unknown NPC type: ${sType}`);
         };
         if(sPlace == 'anywhere'){
           sPlace = this.util.getRandomPlace(this.home.id);// this means that the entity can be anywhere!
@@ -98,12 +97,12 @@ $(function() {
     }
 
     if(window.top == window.self){
-      return new Magnata();
+      return new Game();
     }
 
   }());
 
-  magnata.addCity("Porto Alegre")
+  game.addCity("Porto Alegre")
         .addAirport("Aeroporto", "Porto Alegre–Salgado Filho International Airport",
                     "https://www.google.com/maps/@-29.990081,-51.1753389,3a,75y,89.72h,102.88t/data=!3m8!1e1!3m6!1sAF1QipN7X9BLB_AOajJxecuva5EcxparGTnhopVggF7C!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipN7X9BLB_AOajJxecuva5EcxparGTnhopVggF7C%3Dw900-h600-k-no-pi-12.877823474138125-ya11.720227139378395-ro0-fo100!7i8192!8i4096?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Estádio Beira-Rio", "Estádio Beira-Rio", 0,
@@ -119,14 +118,14 @@ $(function() {
         .addPlace("Morro Santa Tereza", "75 R. Tvs", 0,
                 "https://www.google.com/maps/@-30.0723358,-51.2327894,3a,61.5y,347.87h,92.65t/data=!3m7!1e1!3m5!1sWog5RGiJZVKnMqW6LLSC0w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-2.6493919397229178%26panoid%3DWog5RGiJZVKnMqW6LLSC0w%26yaw%3D347.86513948326535!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D");
 
-  magnata.addNPC("Zé Pequeno", "anywhere", "fixer").setAction('chat');
-  magnata.addNPC("Dna Laura", "Wills Cais Embarcadero", "loanShark").setLimit(10000).setAction('chat').receive(100000);;
-  magnata.addNPC("Barreira", "Gremio Arena", "teamOwner").setAction('chat');
-  magnata.addNPC("Valenzuela", "Estádio Beira-Rio", "manager").setAction('chat');
-  magnata.addNPC("Aninha", "Hotel Deville Prime Porto Alegre", "assistant").setAction('chat');
-  magnata.addNPC("Banco Geral", "Porto Alegre–Salgado Filho International Airport", "loanShark").setLimit(20000).setAction('chat').receive(100000);
+  game.addNPC("Zé Pequeno", "anywhere", "fixer").setAction('chat');
+  game.addNPC("Dna Laura", "Wills Cais Embarcadero", "loanShark").setLimit(10000).setAction('chat').receive(100000);;
+  game.addNPC("Barreira", "Gremio Arena", "teamOwner").setAction('chat');
+  game.addNPC("Valenzuela", "Estádio Beira-Rio", "manager").setAction('chat');
+  game.addNPC("Aninha", "Hotel Deville Prime Porto Alegre", "assistant").setAction('chat');
+  game.addNPC("Banco Geral", "Porto Alegre–Salgado Filho International Airport", "loanShark").setLimit(20000).setAction('chat').receive(100000);
 
-  magnata.addCity("São Paulo")
+  game.addCity("São Paulo")
         .addAirport("Aeroporto", "São Paulo/Guarulhos–Governor André Franco Montoro International Airport",
                     "https://www.google.com/maps/@-23.4284264,-46.4799501,2a,75y,306.94h,87.16t/data=!3m7!1e1!3m5!1s32fRVAZLAlPespA4DBLvKw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D2.8354107499952477%26panoid%3D32fRVAZLAlPespA4DBLvKw%26yaw%3D306.93895222463135!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("MorumBIS", "MorumBIS", 0,
@@ -144,9 +143,9 @@ $(function() {
         .addPlace("Bar Skye", "Skye", 500,
                 "https://www.google.com/maps/@-23.5814894,-46.6665461,3a,90y,15.03h,79.49t/data=!3m8!1e1!3m6!1sAF1QipOTBV6WhwzApmAvuv_dh9eXo9FIz163TBZ4-mul!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOTBV6WhwzApmAvuv_dh9eXo9FIz163TBZ4-mul%3Dw900-h600-k-no-pi10.512435826930513-ya16.026567159933222-ro0-fo100!7i8704!8i4352?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D");
 
-  magnata.addNPC("Seu Laerte", "1572 Av. Brig. Faria Lima", "loanShark").setLimit(2000).setAction('chat').receive(100000);
+  game.addNPC("Seu Laerte", "1572 Av. Brig. Faria Lima", "loanShark").setLimit(2000).setAction('chat').receive(100000);
 
-  magnata.addCity("Rio de Janeiro")
+  game.addCity("Rio de Janeiro")
         .addAirport("Aeroporto", "Santos Dumont Airport",
                     "https://www.google.com/maps/@-22.9128501,-43.1667023,2a,75y,178.98h,106.71t/data=!3m8!1e1!3m6!1shocLlCGR-p-VEQyCksbN7g!2e0!3e2!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-16.7107724794936%26panoid%3DhocLlCGR-p-VEQyCksbN7g%26yaw%3D178.98224276555513!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Maracanã", "Maracanã", 0,
@@ -154,8 +153,8 @@ $(function() {
         .addPlace("São Januario", "São Januário Stadium", 0,
                 "https://www.google.com/maps/@-22.8913576,-43.228641,3a,75y,17.89h,98.21t/data=!3m7!1e1!3m5!1s54uNKfjKtEOBScjXNap9LQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-8.20953612248779%26panoid%3D54uNKfjKtEOBScjXNap9LQ%26yaw%3D17.890400762728973!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D");
 
-  magnata.util.checkElementExists("#titlecard h1", function(){
-    magnata.arrive(); 
+  game.util.checkElementExists("#titlecard h1", function(){
+    game.arrive(); 
   });
 
 })
