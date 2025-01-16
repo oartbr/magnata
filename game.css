@@ -127,6 +127,14 @@
     animation: faderIn 4s forwards;
 }
 
+.commSay{
+    float: left;
+    margin-top: 5px;
+    width:100%;
+    height:100%;
+    text-align:left;
+    font-size:0.85rem
+}
 @keyframes faderOut {
     0% {
         opacity: 1;

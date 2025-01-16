@@ -106,7 +106,8 @@ class PlayBoard{
                             </div>
                             <div class="comm">
                                 <div class="commMessage">...</div>
-                                <div class="commActions">🗲</div>
+                                <div class="commActions"></div>
+                                <div class="commSay"></div>
                             </div>
                             `);
 
@@ -146,13 +147,14 @@ class PlayBoard{
     resetComm(){
         $('.commMessage').empty();
         $('.commActions').empty();
+        $('.commSay').empty();
     }
     say(sWho, sMessage){
         $('.commMessage').remove();
         $('.comm').prepend(`<div class="commMessage">${sWho}: ${sMessage}</div>`);
     }
     message(sMessage){
-        $(this.commActions).append(`<div style="float: left;margin-top: 5px;width:100%;height:100%;text-align:left;font-size:0.85rem">${sMessage}</div>`);
+        $(this.commActions).append(`<div class="commSay">${sMessage}</div>`);
     }
     arrive(){
         const sCity = this.game.currentPlace.city.id;
