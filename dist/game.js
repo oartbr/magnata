@@ -1,4 +1,3 @@
-console.log("linha 1");
 $(function() { 
   window.game = (function (){
     function Game(){
@@ -111,7 +110,7 @@ $(function() {
         .addPlace("Marquês Parrilla", "1249 Av. Carlos Gomes", 150,
                 "https://www.google.com/maps/@-30.0323045,-51.1796782,3a,41.2y,196.94h,82.86t/data=!3m7!1e1!3m5!1sNLzw98MscEzdQvmZ-DmMYA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.143786211494358%26panoid%3DNLzw98MscEzdQvmZ-DmMYA%26yaw%3D196.9432921817689!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Hotel Deville", "Hotel Deville Prime Porto Alegre", 0,
-                "https://www.google.com/maps/@-29.980274,-51.179138,3a,75y,6.68h,92.77t/data=!3m7!1e1!3m5!1sAF1QipNtfZeBtfe3NGgnSxYY2B334sNAcHDwi2HSFoCf!2e10!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipNtfZeBtfe3NGgnSxYY2B334sNAcHDwi2HSFoCf%3Dw900-h600-k-no-pi-2.7678626412589438-ya48.55991014714783-ro0-fo100!7i12572!8i6286?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
+                "https://www.google.com/maps/@-29.9802276,-51.1790763,3a,75y,6.68h,92.77t/data=!3m8!1e1!3m6!1sAF1QipNdVBbP1xpvnoOJqIDLP4THC8bwUZOo5dYnUd8Y!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipNdVBbP1xpvnoOJqIDLP4THC8bwUZOo5dYnUd8Y%3Dw900-h600-k-no-pi-2.769999999999996-ya42.55939453125001-ro0-fo100!7i12564!8i6282?entry=ttu&g_ep=EgoyMDI1MDExNC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Gremio Arena", "Gremio Arena", 0,
                 "https://www.google.com/maps/@-29.9740137,-51.1945709,2a,75y,321.23h,103.63t/data=!3m8!1e1!3m6!1s3lu73F8odmv7QUUrUxgJ1g!2e0!3e2!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-13.629739326030347%26panoid%3D3lu73F8odmv7QUUrUxgJ1g%26yaw%3D321.2259959145414!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Cais Embarcadero","Wills Cais Embarcadero", 120,
@@ -120,11 +119,11 @@ $(function() {
                 "https://www.google.com/maps/@-30.0723358,-51.2327894,3a,61.5y,347.87h,92.65t/data=!3m7!1e1!3m5!1sWog5RGiJZVKnMqW6LLSC0w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-2.6493919397229178%26panoid%3DWog5RGiJZVKnMqW6LLSC0w%26yaw%3D347.86513948326535!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D");
 
   game.addNPC("Zé Pequeno", "anywhere", "fixer").setAction('chat');
-  game.addNPC("Dna Laura", "Wills Cais Embarcadero", "loanShark").setLimit(10000).setAction('chat').receive(100000);;
+  game.addNPC("Dna Laura", "Wills Cais Embarcadero", "loanShark").setAction('chat').receive(1000);
   game.addNPC("Barreira", "Gremio Arena", "teamOwner").setAction('chat');
   game.addNPC("Valenzuela", "Estádio Beira-Rio", "manager").setAction('chat');
-  game.addNPC("Aninha", "Hotel Deville Prime Porto Alegre", "assistant").setAction('chat');
-  game.addNPC("Banco Geral", "Porto Alegre–Salgado Filho International Airport", "loanShark").setLimit(20000).setAction('chat').receive(100000);
+  game.addNPC("Aninha", "Hotel Deville Prime Porto Alegre", "assistant").setAction('chat').receive(100);
+  game.addNPC("Banco Geral", "Porto Alegre–Salgado Filho International Airport", "loanShark").setLimit(20000).setAction('chat').receive(10000);
 
   game.addCity("São Paulo")
         .addAirport("Aeroporto", "São Paulo/Guarulhos–Governor André Franco Montoro International Airport",

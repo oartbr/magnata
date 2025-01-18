@@ -25,7 +25,8 @@ export class Place{
         }
     }
     getButton(){
-        this.el = $('<div id="' + this.id + 'Button" class="actionButton" style="color: #0f0; z-index: 999; cursor: pointer; padding: 0px 3px ;margin: 3px;float: left; border: 1px solid #0f0; font-size: 0.9rem "> ' + this.id + ' </div>');
+        this.el = $('<div id="' + this.id + 'Button" class="actionButton ">' + this.id + '</div>');
+        this.el = $(`<div id="${this.id}_Button" class="actionButton ${this.id == '<' ? 'returnButton' : 'placeButton'}">${this.id}</div>`);
         $(this.el).click(()=>this.getHere());
         return this.el;
     }

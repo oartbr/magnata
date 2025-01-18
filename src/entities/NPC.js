@@ -1,4 +1,10 @@
 import { Entity } from './Entity.js';
+require('dotenv').config();
+
+// Load environment variables from .env file
+const apiKey = process.env.OPENAI_API_KEY;
+
+// Rest of the code...
 
 // this is the base class for all NPC entities in the game
 // the idea is to connect all entities with chatGPT to interact on a natural way - we should create a service for managing this!
@@ -12,7 +18,7 @@ export class NPC extends Entity{
         return this;
     }
     async getChat(prompt, role) {
-        const apiKey = "API_KEY"; // to-do list... get the OpenAI API key
+        const apiKey = apiKey; // to-do list... get the OpenAI API key
         const apiUrl = "https://api.openai.com/v1/chat/completions";
 
         const response = await fetch(apiUrl, {
@@ -22,8 +28,8 @@ export class NPC extends Entity{
             Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: 'user', content: "você é " + role + ". " + prompt + ". Resposta bem curta e direta."}],
+            model: "gpt-4o-mini",
+            messages: [{ role: 'user', temperature: 0.9,content: "você é " + role + ". " + prompt + ". Responda de forma que reflita a sua personalidade mas com uma mensagem curta e direta."}],
         }),
         });
 

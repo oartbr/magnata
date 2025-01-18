@@ -20,21 +20,21 @@ export class PlayBoard{
                                 <div>Magnata: Carpe diem!</div>
                             </div>
                             <div class="status">
-                                <div><h3>Data</h3><span class="statusDate">🗲</span></div>
+                                <div><h3>Data</h3><span class="statusDate"></span></div>
                                 <div><h3>Lugar</h3><span class="statusLocation">🗲</span></div>
                                 <div><h3>Dividas</h3><span class="statusDebt money">🗲</span></div>
-                                <div><h3>Saúde</h3><span class="statusHealth">🗲</span></div>
+                                <div><h3>Saúde</h3><span class="statusHealth"></span></div>
                             </div>
                             <div class="values">
                                 <div class="warehouse">
                                     <div class="stockValue floatLeft">Contratos</div>
                                 </div>
                                 <div class="stock">
-                                    <div class="stockValue floatLeft">Jogadores <span class="stockCapacity">🗲</span></div>
+                                    <div class="stockValue floatLeft">Jogadores <span class="stockCapacity"></span></div>
                                     <div class="stockValue floatRight">Promesas <span class="stockPromises">🗲</span></div>
                                 </div>
                                 <div class="balance">
-                                    <div class="stockValue floatLeft">Cash: <span class="balanceCash money">🗲</span></div>
+                                    <div class="stockValue floatLeft">Cash: <span class="balanceCash money"></span></div>
                                     <div class="stockValue floatRight">Banco: <span class="balanceBank money">🗲</span></div>
                                 </div>
                             </div>
@@ -46,7 +46,6 @@ export class PlayBoard{
                             `);
 
         $(this.el).append(sMainPage);
-
     }
     moveTo(x,y){
         $(this.el).css("left", x).css("top", y);
@@ -64,6 +63,11 @@ export class PlayBoard{
     createAction(sTitle, fAction, oEntity, sVal = 0, iFee = 0){
         const oAction = new Magnata.Place(sTitle, false, false);
         const oAgent = this.game.agent;
+
+        if(sTitle == '<'){
+            $(oAction.el).addClass('returnButton');
+        }
+
         $(oAction.el).click(()=>{ oAgent.spend(iFee);
                                 console.log(iFee, "fee");
                                 oEntity[fAction](this.commActions, sVal, iFee);
@@ -123,7 +127,6 @@ export class PlayBoard{
         let iDebt = 0;
         aSharks.forEach(shark=>iDebt+=shark.debt);
         $(".statusDebt").text(iDebt.toLocaleString('pt-BR'));
-        console.log("setDebt", iDebt);
     }
     setHealth(){
         const health = this.game.agent.health;

@@ -23,10 +23,7 @@
 .gameBoard a{
     color: #0f0;
 }
-.actionButton:hover{
-    border-color: #0ff!important;
-    color: #0ff!important;
-}
+
 .spent{
     color: #fff;
     width: 100%;
@@ -53,9 +50,6 @@
 
 .money::before {
     content: "R$";
-}
-.money::after {
-    content: ",00";
 }
 .gameBoard{
     top: 280px;
@@ -120,11 +114,66 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    font-size: 0.7rem;
+    align-content: center;
+    height: 100%;
+    font-size: 1.1rem;
 }
 .commActions{
     animation: faderIn 4s forwards;
+    position: absolute;
+    left: 395px;
+    top: -220px;
+    width: 140px;
+    height: 295px;
+    display: inline-flex;
+    flex-direction: column-reverse;
+}
+
+.actionButton{
+    color: #0f0; 
+    z-index: 999;
+    cursor: pointer; 
+    padding: 0px 4px;
+    margin: 3px;
+    float: left; 
+    border: 1px solid #0f0; 
+    font-size: 0.9rem;
+    background-color: #00000099;
+    text-align: right;
+    padding-left: 5px;
+    animation-delay: 500ms;
+    animation: showAction 1s forwards;
+    
+}
+.actionButton:hover{
+    background-color: #0ff!important;
+    color: #000!important;
+}
+.returnButton{
+    text-align: left!important;
+}
+.returnButton::after{
+    content: "<< Voltar"
+}
+
+.cityButton::after{
+    content: " >>>"
+}
+
+.placeButton::after{
+    content: " >"
+}
+
+
+@keyframes showAction {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .commSay{

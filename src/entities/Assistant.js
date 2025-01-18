@@ -32,32 +32,33 @@ export class Assistant extends NPC {
     fazerPix(){
         this.game.board.resetComm();
         //this.game.board.say(`${this.name}`, "De quanto você precisa?");
-        this.getChat(`O teu chefe pede dinheiro. Pergunta quanto quer, você só tem ${this.wallet.balance}. Seja bem curta e direta.`, `assistente do Magnata, um agente esportivo.`)
+        this.getChat(`O teu chefe pede dinheiro. Pergunta quanto quer, vai dar o que puder. Seja bem curta e direta, não comente sobre valores exatos.`, `assistente do Magnata, um agente esportivo.`)
             .then(response=>this.say(response));
 
         this.game.board.createAction('<', 'chat', this);
-        this.game.board.createAction('5000', 'pix5k', this);
-        this.game.board.createAction('10000', 'pix10k', this);
-
-        this.pix5k = function(){
-        this.game.util.transfer(this, this.game.agent, 5000);
-        this.game.board.resetComm();
-        //this.game.board.say(`${this.name}`, "Pronto, já fiz e agora?");
-        this.getChat(`Explica que que já fez uma transferencia que ele pediu. Seja bem curta e direta.`, `assistente do Magnata, um agente esportivo.`)
-            .then(response=>this.say(response));
-
-        this.game.board.createAction('<', 'chat', this);
-        this.game.board.createAction('Continuar', 'chat', this);
-        this.game.board.createAction('Sair', 'showOptions', this.game.board);
-        };
-        this.pix10k = function(){
-        this.game.agent.receive(10000);
-        this.game.board.resetComm();
-        this.game.board.say(`${this.name}`, "Feito!");
-
-        this.game.board.createAction('<', 'chat', this);
-        this.game.board.createAction('Continuar', 'chat', this);
-        this.game.board.createAction('Sair', 'showOptions', this.game.board);
-        };
+        this.game.board.createAction('5000', 'transfer', this, 5000);
+        this.game.board.createAction('10000', 'transfer', this, 10000);
     }
+
+    transfer(oEL, iAmount){
+        const anyAmount = (iAmount > this.wallet.balance) ? Math.random() * this.wallet.balance : Math.random() * iAmount;
+        if(this.game.util.transfer(this, this.game.agent, anyAmount)){
+            //this.wallet.pay(iAmount);
+            //this.game.agent.receive(iAmount);
+            this.debt += anyAmount;
+
+            this.game.board.resetComm();
+            this.getChat(`Explica que fez uma transferencia de ${anyAmount.toFixed(2)}, mas precisa de volta logo. Seja bem curta e direta.`, ` assistente do Magnata, um agente esportivo. Você adora o cara.`)
+            .then(response=>this.say(response));
+
+        } else {
+            this.game.board.resetComm();
+            this.game.board.say(`${this.name}`, `Não vai dar, não tenho esse dinheiro agora...`);
+        }
+
+        this.game.board.createAction('<', 'chat', this);
+        this.game.board.createAction('Continuar', 'chat', this);
+        this.game.board.createAction('Sair', 'showPlaces', this.game.board);
+    }
+    
 }

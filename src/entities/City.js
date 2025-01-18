@@ -11,7 +11,7 @@ export class City{
         return this;
     }
     getButton(){
-        this.el = $('<div id="' + this.id + 'Button" style="color: #0f0; z-index: 999; cursor: pointer; padding: 0px 3px ;margin: 3px;float: left; border: 1px solid #0f0; font-size: 0.9rem "> ' + this.id + ' </div>');
+        this.el = $('<div id="' + this.id + 'Button"  class="actionButton cityButton"> ' + this.id + ' </div>');
         $(this.el).click(()=>this.landHere());
         return this.el;
     }
