@@ -18,7 +18,7 @@ export class NPC extends Entity{
         return this;
     }
     async getChat(prompt, role) {
-        const apiKey = apiKey; // to-do list... get the OpenAI API key
+        const apiKey = ""; // to-do list... get the OpenAI API key
         const apiUrl = "https://api.openai.com/v1/chat/completions";
 
         const response = await fetch(apiUrl, {
