@@ -15,13 +15,14 @@ export class Place{
 
         return this;
     }
-    getHere(){
+    async getHere(){
         const bAirTravel = typeof this.city != 'undefined' && this.city.game.currentPlace.airport === true && this.airport === true;        
         if(this.location) {
             this.reference ? this.city.game.agent.spend(bAirTravel ? this.city.movementFee : this.movementFee, bAirTravel ? this.city.movementMessage : this.movementMessage) : '';
             this.city.game.board.setStatus();
             bAirTravel ? this.city.game.timer.trip(24) : this.city.game.timer.trip(6);
-            window.location.href = this.location;
+            //window.location.href = this.location;
+            await this.city.game.streetView.relocate(this.location, this.city.game);
         }
     }
     getButton(){

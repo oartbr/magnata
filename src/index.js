@@ -1,3 +1,8 @@
+// polyfills.js
+import process from 'process/browser';
+window.process = process;
+
+
 // these are the basic utils for the game
 export { Collection } from './utils/Collection.js';
 export { Storage } from './utils/Storage.js';
@@ -7,6 +12,9 @@ export { Wallet } from './utils/Wallet.js';
 // these are the basic objects to work together with the board
 export { Action } from './components/Action.js';
 export { Page } from './components/Page.js';
+
+// these are third party services
+export { StreetView } from './services/StreetView.js';
 
 // these objects drive the game
 export { PlayBoard } from './core/PlayBoard.js';

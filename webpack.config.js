@@ -1,12 +1,14 @@
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   entry: './src/index.js', // Entry file
   output: {
     path: path.resolve(__dirname, 'dist'), // Output directory
-    filename: 'magnata.bundle.js', // Output file name
-    library: 'Magnata', // Name of the global variable for UMD
-    libraryTarget: 'umd', // Universal Module Definition
+    filename: 'magnata.bundle.js',         // for entry chunks
+    chunkFilename: '[name].[chunkhash].js', // for non-entry (split) chunks
+    library: 'Magnata',         // The name of the global variable.
+    libraryTarget: 'window',     // Expose it as a property on the window object.
     globalObject: 'this', // Fix for UMD in Node.js
   },
   mode: 'production', // Use 'production' for minification
@@ -23,5 +25,18 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js'], // Automatically resolve these extensions
+    fallback: {
+      process: require.resolve('process/browser'),
+      crypto: require.resolve('crypto-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      path: require.resolve('path-browserify'),
+      vm: require.resolve('vm-browserify'),
+      stream: require.resolve('stream-browserify'),
+    }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser', // This injects the polyfill wherever `process` is used.
+    }),
+  ],
 };

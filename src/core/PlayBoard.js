@@ -5,7 +5,7 @@ export class PlayBoard{
         this.db = this.game.db;
         this.util = this.game.util;
         this.el = $('<div id="' + sId + '_board" class="gameBoard"/>');
-        $('#titlecard').append(this.el);
+        $('body').append(this.el);
 
         this.commActions = '.commActions';
 

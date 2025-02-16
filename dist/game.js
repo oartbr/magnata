@@ -33,6 +33,10 @@ $(function() {
 
         this.currentPlace = {};
         this.home = {};
+
+        this.streetView = new Magnata.StreetView()
+                                     .setLocation("https://www.google.com/maps/@-30.0314242,-51.2403792,3a,75y,5.8h,73.33t/data=!3m8!1e1!3m6!1sAF1QipP_cAg3gx-m1v3oK9BBVlFza4BOBp2TVW1OPHbK!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipP_cAg3gx-m1v3oK9BBVlFza4BOBp2TVW1OPHbK%3Dw900-h600-k-no-pi16.67-ya229.82000427246092-ro0-fo100!7i6080!8i3040?entry=ttu&g_ep=EgoyMDI1MDIxMi4wIKXMDSoASAFQAw%3D%3D")
+                                     .setAnchor("body");
       },
       addCity: function(sName, sLocation){
         this.cities[sName] = new Magnata.City(sName, sLocation, this);
@@ -79,8 +83,9 @@ $(function() {
         this.places[sPlace].addContact(oNPC);
         return oNPC;
       },
-      arrive(){
-        let sHere = $("#titlecard h1").text();
+      async arrive(){
+        //let sHere = $("#titlecard h1").text();
+        let sHere = await this.streetView.panorama.location.shortDescription;
         sHere = sHere.replace(/^\s+|\s+$/g,'');
         let currentPlace = this.util.searchPlace(sHere);
 
@@ -147,13 +152,13 @@ $(function() {
 
   game.addCity("Rio de Janeiro")
         .addAirport("Aeroporto", "Santos Dumont Airport",
-                    "https://www.google.com/maps/@-22.9128501,-43.1667023,2a,75y,178.98h,106.71t/data=!3m8!1e1!3m6!1shocLlCGR-p-VEQyCksbN7g!2e0!3e2!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-16.7107724794936%26panoid%3DhocLlCGR-p-VEQyCksbN7g%26yaw%3D178.98224276555513!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
+                    "https://www.google.com/maps/@-22.9128501,-43.1667023,2a,75y,178.98h,106.71t/data=!3m8!1e1!3m6!1shocLlCGR-p-VEQyCksbN7g!2e0!3e2!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-16.709999999999994%26panoid%3DhocLlCGR-p-VEQyCksbN7g%26yaw%3D178.98!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDIxMi4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("Maracanã", "Maracanã", 0,
                 "https://www.google.com/maps/@-22.9127772,-43.2301363,2a,75y,4.11h,82.43t/data=!3m8!1e1!3m6!1sC7Jyx9JGw2-UPa4xo7z0QA!2e0!3e2!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.568215855794705%26panoid%3DC7Jyx9JGw2-UPa4xo7z0QA%26yaw%3D4.111574112961819!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D")
         .addPlace("São Januario", "São Januário Stadium", 0,
                 "https://www.google.com/maps/@-22.8913576,-43.228641,3a,75y,17.89h,98.21t/data=!3m7!1e1!3m5!1s54uNKfjKtEOBScjXNap9LQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-8.20953612248779%26panoid%3D54uNKfjKtEOBScjXNap9LQ%26yaw%3D17.890400762728973!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D");
 
-  game.util.checkElementExists("#titlecard h1", function(){
+  game.util.checkElementExists("#streetView", function(){
     game.arrive(); 
   });
 

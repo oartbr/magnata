@@ -2,7 +2,7 @@ import { Entity } from './Entity.js';
 require('dotenv').config();
 
 // Load environment variables from .env file
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = "";
 
 // Rest of the code...
 
